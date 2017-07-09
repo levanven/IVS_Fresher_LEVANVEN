@@ -1,0 +1,4 @@
+D:\training_ASP.NET MVC\IVS.LeVanVen\MODEL\bin\Debug\MODEL.dll
+D:\training_ASP.NET MVC\IVS.LeVanVen\MODEL\bin\Debug\MODEL.pdb
+D:\training_ASP.NET MVC\IVS.LeVanVen\MODEL\obj\Debug\MODEL.dll
+D:\training_ASP.NET MVC\IVS.LeVanVen\MODEL\obj\Debug\MODEL.pdb

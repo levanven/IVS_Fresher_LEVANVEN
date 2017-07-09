@@ -1,0 +1,221 @@
+﻿@model MODEL.Item_model
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<style>
+    .requirement {
+        color: red;
+    }
+</style>
+<div class="row" style="margin:30px 0 -20px 0">
+    @Html.ActionLink("Home", "Index", "Home", null, new { }) / @Html.ActionLink("Item", "Index", "Item", null, new { }) / Edit
+</div>
+<hr />
+@if (!String.IsNullOrEmpty((string)TempData["Error"]))
+{
+    <div id="error" class="error">
+        @TempData["Error"]
+    </div>
+}
+<div id="main">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+        <div  style="color:red;">* Indicates required fields</div>
+        <table class="inputForm">
+            <colgroup>
+                <col class="col-md-2" />
+                <col class="col-md-4" />
+                <col class="col-md-2" />
+                <col class="col-md-4" />
+            </colgroup>
+            <tbody>
+                <tr class="form-group">
+                    <td class="text-right">
+                        <label>category</label>
+                        <label class="requirement">*</label>
+                    </td>
+                    <td>
+                        <div>
+                            @Html.DropDownList("category_id", new SelectList(ViewBag.Category, "id", "name"), string.Empty, new { @class = "form-control" })
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        @Html.LabelFor(model => model.code, htmlAttributes: new { })
+                        <label class="requirement">*</label>
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.code, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                </tr>
+                <tr class="form-group">
+                    <td class="text-right">
+                        @Html.LabelFor(model => model.name, htmlAttributes: new { })
+                    </td>
+                    <td>
+                        <div>
+                            @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        @Html.LabelFor(model => model.specification, htmlAttributes: new { })
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.specification, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                </tr>
+                <tr class="form-group">
+                    <td class="text-right">
+                        @Html.LabelFor(model => model.description, htmlAttributes: new { })
+                    </td>
+                    <td>
+                        <div>
+                            @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        @Html.LabelFor(model => model.dangerous, htmlAttributes: new { })
+                        <label class="requirement">*</label>
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(model => model.dangerous, new { @checked = "checked", style = "width:20px; height:20px;" })
+                    </td>
+                </tr>
+                <tr class="form-group">
+                    <td class="text-right">
+                        @Html.LabelFor(model => model.discontinued_datetime, htmlAttributes: new { })
+                    </td>
+                    <td>
+                        <div>
+                            @Html.EditorFor(model => model.discontinued_datetime, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <label>inventory_measure</label>
+                    </td>
+                    <td>
+                        @Html.DropDownList("inventory_measure_id", new SelectList(ViewBag.Measure, "id", "name"), string.Empty, new { @class = "form-control" })
+                    </td>
+                </tr>
+
+                <tr class="form-group">
+                    <td class="text-right">
+                        @Html.LabelFor(model => model.inventory_expired, htmlAttributes: new { })
+                    </td>
+                    <td>
+                        <div>
+                            @Html.EditorFor(model => model.inventory_expired, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        @Html.LabelFor(model => model.inventory_standard_cost, htmlAttributes: new { })
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.inventory_standard_cost, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                </tr>
+
+                <tr class="form-group">
+                    <td class="text-right">
+                        @Html.LabelFor(model => model.inventory_list_price, htmlAttributes: new { })
+                    </td>
+                    <td>
+                        <div>
+                            @Html.EditorFor(model => model.inventory_list_price, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        @Html.LabelFor(model => model.manufacture_day, htmlAttributes: new { })
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.manufacture_day, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                </tr>
+
+                <tr class="form-group">
+                    <td class="text-right">
+                        @Html.LabelFor(model => model.manufacture_make, htmlAttributes: new { })
+                    </td>
+                    <td>
+                        <div>
+                            @Html.EditorFor(model => model.manufacture_tool, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        @Html.LabelFor(model => model.manufacture_tool, htmlAttributes: new { })
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.manufacture_tool, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                </tr>
+
+                <tr class="form-group">
+                    <td class="text-right">
+                        @Html.LabelFor(model => model.manufacture_size, htmlAttributes: new { })
+                    </td>
+                    <td>
+                        <div>
+                            @Html.EditorFor(model => model.manufacture_size, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <label>manufacture_size_measure</label>
+                    </td>
+                    <td>
+                        @Html.DropDownList("manufacture_size_measure_id", new SelectList(ViewBag.Measure, "id", "name"), string.Empty, new { @class = "form-control" })
+                    </td>
+                </tr>
+
+                <tr class="form-group">
+                    <td class="text-right">
+                        <label>manufacture_weight_measure</label>
+                    </td>
+                    <td>
+                        <div>
+                            @Html.DropDownList("manufacture_weight_measure_id", new SelectList(ViewBag.Measure, "id", "name"), string.Empty, new { @class = "form-control" })
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        @Html.LabelFor(model => model.manufacture_style, htmlAttributes: new { })
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.manufacture_style, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                </tr>
+
+                <tr class="form-group">
+                    <td class="text-right">
+                        @Html.LabelFor(model => model.manufacture_class, htmlAttributes: new { })
+                    </td>
+                    <td>
+                        <div>
+                            @Html.EditorFor(model => model.manufacture_class, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        @Html.LabelFor(model => model.manufacture_color, htmlAttributes: new { })
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.manufacture_color, new { htmlAttributes = new { @class = "form-control" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            @Html.ActionLink("Back to List", "Index", "Item", new { }, new { @class = "btn btn-sm btn-default" })
+            <input type="submit" value="Save" class="btn btn-sm btn-primary" />
+        </div>
+    }
+</div>
+

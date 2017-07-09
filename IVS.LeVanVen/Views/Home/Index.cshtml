@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Product Management</h1>
+</div>
+
+<div class="row" style="margin:0 0 0 160px;">
+    <div class="col-md-4">
+        <h2>Category</h2>
+        <p><a class="btn btn-default" href="@Url.Action("Index","Category")">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Item</h2>
+        <p><a class="btn btn-default" href="@Url.Action("Index","Item")">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Measure</h2>
+        <p><a class="btn btn-default" href="@Url.Action("Index","Measure")">Learn more &raquo;</a></p>
+    </div>
+</div>

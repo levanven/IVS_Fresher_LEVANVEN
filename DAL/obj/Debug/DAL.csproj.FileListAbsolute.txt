@@ -1,0 +1,14 @@
+D:\training_ASP.NET MVC\IVS.LeVanVen\DAL\bin\Debug\DAL.dll
+D:\training_ASP.NET MVC\IVS.LeVanVen\DAL\bin\Debug\DAL.pdb
+D:\training_ASP.NET MVC\IVS.LeVanVen\DAL\bin\Debug\Dapper.dll
+D:\training_ASP.NET MVC\IVS.LeVanVen\DAL\bin\Debug\Google.Protobuf.dll
+D:\training_ASP.NET MVC\IVS.LeVanVen\DAL\bin\Debug\MODEL.dll
+D:\training_ASP.NET MVC\IVS.LeVanVen\DAL\bin\Debug\MySql.Data.dll
+D:\training_ASP.NET MVC\IVS.LeVanVen\DAL\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\training_ASP.NET MVC\IVS.LeVanVen\DAL\bin\Debug\MODEL.pdb
+D:\training_ASP.NET MVC\IVS.LeVanVen\DAL\bin\Debug\Dapper.xml
+D:\training_ASP.NET MVC\IVS.LeVanVen\DAL\bin\Debug\Google.Protobuf.xml
+D:\training_ASP.NET MVC\IVS.LeVanVen\DAL\bin\Debug\MySql.Data.xml
+D:\training_ASP.NET MVC\IVS.LeVanVen\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+D:\training_ASP.NET MVC\IVS.LeVanVen\DAL\obj\Debug\DAL.dll
+D:\training_ASP.NET MVC\IVS.LeVanVen\DAL\obj\Debug\DAL.pdb

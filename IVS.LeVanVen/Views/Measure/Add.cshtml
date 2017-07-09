@@ -1,0 +1,76 @@
+﻿@model MODEL.Measure_model
+
+@{
+    ViewBag.Title = "Add";
+}
+<div class="row" style="margin:30px 0 -20px 0">
+    @Html.ActionLink("Home", "Index", "Measure", null, new { }) / @Html.ActionLink("Measure", "Index", "Measure", null, new { }) / Add
+</div>
+<hr />
+
+@if (!String.IsNullOrEmpty((string)TempData["Error"]))
+{
+    <div id="error" class="error">
+        @TempData["Error"]
+    </div>
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    <div style="color:red;">* Indicates required fields</div>
+    <table class="form-horizontal inputForm">
+        <colgroup>
+            <col class="col-md-1" />
+            <col class="col-md-6" />
+            <col />
+        </colgroup>
+        <tbody>
+            <tr>
+                <td class="pull-right">
+                    @Html.DisplayNameFor(m => m.code)
+                    <label class="lblRequirement">*</label>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.code, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td class="pull-right">
+                    @Html.DisplayNameFor(m => m.name)
+                    <label class="lblRequirement">*</label>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td class="pull-right">
+                    @Html.DisplayNameFor(m => m.description)
+                </td>
+                <td>
+                    @Html.TextAreaFor(m => m.description, new { @class = "form-control input-sm", maxlength = "256", @style = "height: 125px;" })
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.ActionLink("Back to List", "Index", "Measure", new { }, new { @class = "btn btn-sm btn-default" })
+                    <input type="submit" value="Save" class="btn btn-sm btn-primary" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+}
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#code').focus();
+        });
+    </script>
+}

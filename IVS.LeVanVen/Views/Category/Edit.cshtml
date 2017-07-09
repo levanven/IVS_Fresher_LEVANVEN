@@ -1,0 +1,86 @@
+﻿@model MODEL.Category_model
+
+@{
+    ViewBag.Title = "Update Category";
+}
+<div class="row" style="margin:30px 0 -20px 0">
+    @Html.ActionLink("Home", "Index", "Category", null, new { }) / @Html.ActionLink("Category", "Index", "Category", null, new { }) / Edit
+</div>
+<hr />
+
+@if (!String.IsNullOrEmpty((string)TempData["Error"]))
+{
+    <div id="error" class="error">
+        @TempData["Error"]
+    </div>
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    <div style="color:red;">* Indicates required fields</div>
+    <table class="form-horizontal inputForm">
+        <colgroup>
+            <col class="col-md-1" />
+            <col class="col-md-6" />
+            <col />
+        </colgroup>
+        <tbody>
+            <tr>
+                <td class="pull-right">
+                    Code
+                    <label class="lblRequirement">*</label>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.code, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td class="pull-right">
+                    Name
+                    <label class="lblRequirement">*</label>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+            <tr>
+                <td class="pull-right">
+                    Name
+                </td>
+                <td>
+                    @Html.DropDownListFor(m => m.parent_id, (SelectList)ViewBag.Parent, new
+               {
+                   @class = "form-control input-sm selectpicker",
+                   @id = "ParentID"
+               })
+                </td>
+            </tr>
+            <tr>
+                <td class="pull-right">
+                    Description
+                </td>
+                <td>
+                    @Html.TextAreaFor(m => m.description, new { @class = "form-control input-sm", maxlength = "256", @style = "height: 125px;" })
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.ActionLink("Back to List", "Index", "Category", new { }, new { @class = "btn btn-sm btn-default" })
+                    <input type="submit" value="Save" class="btn btn-sm btn-primary" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $('#code').focus();
+        });
+    </script>
+}

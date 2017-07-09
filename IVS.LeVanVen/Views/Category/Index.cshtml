@@ -1,0 +1,201 @@
+﻿@model Tuple<MODEL.SearchCategory_model, IPagedList<MODEL.DisplayCategory_model>>
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int num = Convert.ToInt32(ViewBag.page) * 15;
+}
+<style>
+    .headerTable {
+        background: #0094ff;
+        color: white;
+    }
+</style>
+<div class="row" style="margin:30px 0 -20px 0">
+    @Html.ActionLink("Home", "Index", "Home", null, new { }) / Category
+</div>
+<hr />
+
+<div style="margin:0px 0 -20px 0px">
+    <div class="row">
+        <div class="col-md-2" style="margin:0 0 -20px 0">
+            @Html.ActionLink("Add", "Add", "Category", new { }, new { @class = "btn btn-primary btn-sm"})
+            <button class="btn btn-danger btn-sm" id="Remove_items" url="@Url.Action("Delete", "Category")">Delete</button>
+        </div>
+        @using (Html.BeginForm("Index", "Category", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            <form class="form-inline">
+                <div class="form-group col col-md-3">
+                    @Html.TextBox("code", Model.Item1.code, new { @class = "form-control", @placeholder = "Code" })
+                </div>
+                <div class="form-group col col-md-3">
+                    @Html.TextBox("name", Model.Item1.name, new { @class = "form-control", @placeholder = "Name" })
+                </div>
+                <div class="form-group col col-md-3">
+                    @Html.DropDownList("parent_id", new SelectList(ViewBag.lstcombobox, "id", "name"), string.Empty, new { @class = "form-control" })
+                </div>
+                <div class="form-group col col-md-1">
+                    <input class="btn btn-primary" value="Search" type="submit" />
+                </div>
+            </form>
+        }
+    </div>
+</div>
+<hr />
+<div class="table-responsive" id="divLis">
+    @if (ViewBag.ListSearch != null)
+    {
+        <div class="table-responsive" id="divLis">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr class="headerTable">
+                        <th  class="text-center"><input type="checkbox" name="checkAll" /></th>
+                        <th class="text-right">No</th>
+                        <th>
+                            Code
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Parent Name
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Item2)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                <input type="checkbox" name="check" value="@item.id" />
+                            </td>
+                            <td style="text-align:right">
+                                @{ num++;}
+                                <a href="@Url.Action("View", "Category", new { @id = item.id }, null)">@num</a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.code)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.parent_name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.description)
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+            @if (ViewBag.ListSearch != null)
+            {
+                @Html.PagedListPager((IPagedList)Model.Item2, page => Url.Action("Index", new { page }))
+            }
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/bootbox.min.js"></script>
+    <script>
+        function Xoa(ID) {
+            bootbox.confirm({
+                size: "small",
+                message: "Do you want to delete?",
+                callback: function (result) {
+                    if (result == true) {
+                        tr = $(this).parents("tr");
+                        $.ajax({
+                            method: 'POST',
+                            url: '/Category/Delete',
+                            data: { id: ID },
+                            success: function (Success) {
+                                if (Success.Message != null) {
+                                    tr.hide(1000);
+                                    bootbox.alert({
+                                        message: "Delete successfully!",
+                                        size: 'small'
+                                    });
+                                    location.reload();
+                                }
+                                else {
+                                    bootbox.alert({
+                                        message: "Unsuccessfully!",
+                                        size: 'small'
+                                    });
+                                }
+
+                            }
+                        })
+                    }
+                }
+            });
+        };
+    </script>
+    <script>
+        $(document).ready(function () {
+            //remove click
+            $(document).delegate("#Remove_items", "click", function (e) {
+                e.preventDefault();
+
+                var url = $(this).attr('url');
+                var chk = document.getElementsByName("check");
+                var data = [];
+                for (var i = 0; i < chk.length; i++) {
+                    if (chk[i].checked) {
+                        data.push(chk[i].value);
+                    }
+                };
+                if (data.length <= 0) {
+                    bootbox.confirm({
+                        size: "small",
+                        message: "Please select items!",
+                        callback: function (result) {
+                            return true;
+                        }
+                    });
+                }
+                else {
+                    bootbox.confirm({
+                        size: "small",
+                        message: "Do you want to delete?",
+                        callback: function (result) {
+                            if (result == true) {
+                                $.ajax({
+                                    url: url,
+                                    type: "post",
+                                    async: false,
+                                    data: {
+                                        "id": data
+                                    },
+                                    success: function (f) {
+                                        location.reload();
+                                    }
+                                });
+                            } else {
+                                return true;
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("input[name='checkAll']").click(function () {
+                var checked = $("input[name='checkAll']").prop("checked");
+                $("input[name='check']").prop("checked", checked);
+            });
+        });
+    </script>
+}

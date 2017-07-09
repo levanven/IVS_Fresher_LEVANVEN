@@ -1,0 +1,69 @@
+﻿@model MODEL.Measure_model
+
+@{
+    ViewBag.Title = "View";
+}
+
+<div class="row" style="margin:30px 0 -20px 0">
+    @Html.ActionLink("Home", "Index", "Measure", null, new { }) / @Html.ActionLink("Measure", "Index", "Measure", null, new { }) / View
+</div>
+<hr />
+@if (!String.IsNullOrEmpty((string)TempData["Success"]))
+{
+    <div id="success" class="success">
+        @TempData["Success"]
+    </div>
+}
+@if (!String.IsNullOrEmpty((string)TempData["Error"]))
+{
+    <div id="error" class="error">
+        @TempData["Error"]
+    </div>
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+<table class="form-horizontal inputForm">
+    <colgroup>
+        <col class="col-md-1" />
+        <col class="col-md-6" />
+        <col />
+    </colgroup>
+    <tbody>
+        <tr>
+            <td class="pull-right">
+                @Html.DisplayNameFor(m => m.code)
+                <label class="lblRequirement">*</label>
+            </td>
+            <td>
+                @Html.EditorFor(model => model.code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </td>
+        </tr>
+        <tr>
+            <td class="pull-right">
+                @Html.DisplayNameFor(m => m.name)
+                <label class="lblRequirement">*</label>
+            </td>
+            <td>
+                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </td>
+        </tr>
+        <tr>
+            <td class="pull-right">
+                @Html.DisplayNameFor(m => m.description)
+            </td>
+            <td>
+                @Html.TextAreaFor(m => m.description, new { @class = "form-control input-sm", maxlength = "256", @style = "height: 125px;", @readonly = "readonly" })
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                @Html.ActionLink("Back to List", "Index", "Measure", new { }, new { @class = "btn btn-sm btn-default" })
+                @Html.ActionLink("Edit", "Edit", "Measure", new { @id = @Model.id }, new { @class = "btn btn-danger btn-sm" })
+            </td>
+        </tr>
+    </tbody>
+</table>
+}
